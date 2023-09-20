@@ -86,7 +86,7 @@ The server should now be running on `http://localhost:8000`
 
 This Dockerfile consists of two stages:
 
-### Build Stage (named "build"):
+#### Build Stage (named "build"):
 
 - Uses the official Python 3.8 image as the base image.
 - Sets environment variables for Python.
@@ -94,7 +94,7 @@ This Dockerfile consists of two stages:
 - Copies the project files (including requirements.txt) into the container.
 - Installs project dependencies from requirements.txt.
 
-### Production Stage (named "production"):
+#### Production Stage (named "production"):
 
 - Uses the slimmer Python 3.8-slim image as the base image for production.
 - Sets environment variables.
