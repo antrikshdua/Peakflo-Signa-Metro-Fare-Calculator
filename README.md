@@ -195,7 +195,7 @@ The project contains tests for all endpoints and all the cases,
 pytest --verbose tests/ 
 ```
 
-![alt text](https://github.com/antrikshdua/Peakflo-Signa-Metro-Fare-Calculator/blob/main/images/pytest-pass..jpg?raw=true)
+![alt text](https://github.com/antrikshdua/Peakflo-Signa-Metro-Fare-Calculator/blob/main/images/pytest-pass.jpg?raw=true)
 
 
 #### API Testing
