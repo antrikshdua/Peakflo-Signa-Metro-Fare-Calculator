@@ -2,13 +2,25 @@
 
 Singa Metro Authority (SMA) Fare Calculator is a FastAPI-based application for calculating fares for the Singa metro system. It implements fare rules, peak hours, and fare caps for various metro lines.
 
-## Features
+## Use Case Features
 
 - Calculates fares based on the journey's starting and ending lines.
 - Considers peak hours for fare calculation.
 - Implements daily and weekly fare caps.
 - In case the fare meets the cap make the ride free for that day/week
 - Allows the user to upload a CSV file with journey data for fare calculation.
+
+
+## Tech Features
+
+- Python 3.8+ support
+- Asynchoronous capabilities
+- Uvicorn
+- Testing suite
+- Type checking using pydantic
+- Readily available CRUD operations
+- Formatting using black
+
 
 ## Requirements
 
@@ -18,22 +30,28 @@ Singa Metro Authority (SMA) Fare Calculator is a FastAPI-based application for c
 - pytest (for running tests)
 - Docker (for containerization)
 
-
-
 ### Table of Contents
 
-- [Project Setup](#project-overview)
-- [Features](#features)
+- [Project Overview](#peakflo-singa-metro-fare-calculator)
+- [Use Case Features](#use-case-features)
+- [Tech Features](#tech-features)
+- [Requirements](#requirements)
 - [Installation Guide](#installation-guide)
+  - [Local Setup](#local-setup)
+  - [Production Setup: Containerization using Docker](#production-setup-containerization-using-docker)
 - [Usage Guide](#usage-guide)
-- [Advanced Usage](#advanced-usage)
+  - [Enums](#enums)
+- [Testing](#testing)
+  - [Test Suite](#test-suite)
+  - [API Testing](#api-testing)
+  - [Test Cases](#test-cases)
 - [Contributing](#contributing)
 - [License](#license)
 - [Acknowledgements](#acknowledgements)
 
 ### Algorithm: Terminologies  
 
-- The action of reducing the fare to make it equal to the daily cap when the sum of the daily fare usage and the current journey's fare  exceeds the daily cap is likely implemented to prevent riders from being charged more than the daily cap for a single day of travel.
+- The action of reducing the fare to make it equal to the daily cap when the sum of the daily fare usage and the current journey's fare  exceeds the daily cap is implemented to prevent riders from being charged more than the daily cap for a single day of travel.
 
 Here's a breakdown of why this action is performed:
 
@@ -114,16 +132,6 @@ docker build -t singa-metro-fare-calculator .
 # Run the Docker container
 docker run -p 8000:8000 singa-metro-fare-calculator
 ```
-
-### Features
-
-- Python 3.8+ support
-- Asynchoronous capabilities
-- Uvicorn
-- Testing suite
-- Type checking using pydantic
-- Readily available CRUD operations
-- Formatting using black
 
 ### Usage Guide
 
