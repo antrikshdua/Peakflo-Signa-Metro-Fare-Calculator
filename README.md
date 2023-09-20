@@ -238,7 +238,7 @@ peak_hours = {
 
 ## Testing
 
-The project contains tests for all endpoints and all the cases, 
+The test file contains all the cases, 
 
 
 #### Test Suite 
