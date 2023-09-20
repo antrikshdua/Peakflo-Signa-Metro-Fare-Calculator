@@ -1,19 +1,3 @@
-<!---
-Copyright 2023 The Antriksh Dua team. All rights reserved.
-
-Licensed under the Apache License, Version 2.0 (the "License");
-you may not use this file except in compliance with the License.
-You may obtain a copy of the License at
-
-    http://www.apache.org/licenses/LICENSE-2.0
-
-Unless required by applicable law or agreed to in writing, software
-distributed under the License is distributed on an "AS IS" BASIS,
-WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-See the License for the specific language governing permissions and
-limitations under the License.
--->
-
 # Peakflo: Singa Metro Fare Calculator
 
 Singa Metro Authority (SMA) Fare Calculator is a FastAPI-based application for calculating fares for the Singa metro system. It implements fare rules, peak hours, and fare caps for various metro lines.
@@ -34,12 +18,7 @@ Singa Metro Authority (SMA) Fare Calculator is a FastAPI-based application for c
 - pytest (for running tests)
 - Docker (for containerization)
 
-## Setup
 
-1. **Clone the repository:**
-
-   ```bash
-   git clone https://github.com/antrikshdua/<repo-name>
 
 ### Table of Contents
 
@@ -68,25 +47,37 @@ Here's a breakdown of why this action is performed:
 
 In summary, this action is taken to ensure that riders are charged fairly and that they do not exceed the daily cap, which is designed to protect them from excessive charges on any given day.
 
-### Project Setup
+### Installation Guide
 
-1. **Setup project locally:**
+1. **Clone the repository:**
+
+   ```bash
+   https://github.com/antrikshdua/Peakflo-Signa-Metro-Fare-Calculator.git
+   ```
+
+2. **Setup project locally:**
 
     ```bash
     python -m venv venv
+    ```
+    
+    ```bash
     source venv/bin/activate  # On Windows, use `venv\Scripts\activate`
-
-2. **Install Dependencies:**
+    ```
+    
+3. **Install Dependencies:**
 
     ```bash
     pip install -r requirements.txt
+    ````
 
-
-3. **Run project locally:**
+4. **Run project locally:**
 
     ```bash
     python main.py
-    
+    ```
+
+The server should now be running on `http://localhost:8000`
 
 ### Features
 
@@ -98,222 +89,119 @@ In summary, this action is taken to ensure that riders are charged fairly and th
 - Readily available CRUD operations
 - Formatting using black
 
-### Installation Guide
-
-You need following to run this project:
-
-- Python 3.8
-- [Docker with Docker Compose](https://docs.docker.com/compose/install/)
-- [Poetry](https://python-poetry.org/docs/#installation)
-
-I use [asdf](https://asdf-vm.com/#/) to manage my python versions. You can use it too. However, it is only supported on Linux and macOS. For Windows, you can use something like pyenv.
-
-Once you have installed the above and have cloned the repository, you can follow the following steps to get the project up and running:
-
-1. Create a virtual environment using poetry:
-
-```bash
-poetry shell
-```
-
-2. Install the dependencies:
-
-```bash
-poetry install
-```
-
-3. Run the database and redis containers:
-
-```bash
-docker-compose up -d
-```
-
-4. Copy the `.env.example` file to `.env` and update the values as per your needs.
-
-5. Run the migrations:
-
-```bash
-make migrate
-```
-
-6. Run the server:
-
-```bash
-make run
-```
-
-The server should now be running on `http://localhost:8000` and the API documentation should be available at `http://localhost:8000/docs`.
-
 ### Usage Guide
 
 The project is designed to be modular and scalable. There are 3 main directories in the project:
 
-1. `core`: This directory contains the central part of this project. It contains most of the boiler plate code like security dependencies, database connections, configuration, middlewares etc. It also contains the base classes for the models, repositories, and controllers. The `core` directory is designed to be as minimal as possible and usually requires minimal attention. Overall, the `core` directory is designed to be as generic as possible and can be used in any project. While building additional feature you may not need to modify this directory at all except for adding more controllers to the `Factory` class in `core/factory.py`.
+1. `core`: This directory contains the central part of this project. It currenty contains cnfig and utils but most of the boiler plate code like security dependencies, database connectionsetc goes here. Overall, the `core` directory is designed to be as generic as possible and can be used in any project.
 
-2. `app`: This directory contains the actual application code. It contains the models, repositories, controllers, and schemas for the application. This is the directory you will be spending most of your time in while building features. The directory has following sub-directories:
+2. `app`: This directory contains the actual application code. It contains the modules, enums, schemas and business logic. This is the directory you will be spending most of your time in while building features. The directory has following sub-directories:
 
-   - `models` Here is where you add new tables
-   - `repositories` For each model, you need to create a repository. This is where you add the CRUD operations for the model.
-   - `controllers` For each logical unit of the application, you need to create a controller. This is where you add the business logic for the application.
+   - `modules` Here is where you add new modules. this contains teh modules named accordingly with the related version.
+   - `v1` Here are the enums, schemad and the business logic corresponding that version of the module. 
    - `schemas` This is where you add the schemas for the application. The schemas are used for validation and serialization/deserialization of the data.
+   - `enums` The enums are used for providing the constant values such as schedules, farecaos, fare routes etc.
+3. `main.py`: This file contains the API layer of the application and is teh main entry point file. It is where you add the API endpoints.
 
-3. `api`: This directory contains the API layer of the application. It contains the API router, it is where you add the API endpoints.
 
-### Advanced Usage
+#### Enums 
 
-The boilerplate contains a lot of features some of which are used in the application and some of which are not. The following sections describe the features in detail.
+The enums are designed based on the tab;le data provided in the problem stattement 
 
-#### Database Migrations
-
-The migrations are handled by Alembic. The migrations are stored in the `migrations` directory. To create a new migration, you can run the following command:
-
-```bash
-make generate-migration
-```
-
-It will ask you for a message for the migration. Once you enter the message, it will create a new migration file in the `migrations` directory. You can then run the migrations using the following command:
+1. **Fare Enum:**
 
 ```bash
-make migrate
+# Load fare rules and caps from configuration
+# Fares
+# | FromLine | ToLine | Non-Peak| Peak|
+# |----------|--------|----------|-----------|
+# | Green    | Green  | 1       | 2        |
+# | Red      | Red    | 2       | 3       |
+# | Green    | Red    | 3       | 4        |
+# | Red      | Green  | 2       | 3        |
 ```
-
-If you need to downgrade the database or reset it. You can use `make rollback` and `make reset-database` respectively.
-
-#### Authentication
-
-The authentication used is basic implementation of JWT with bearer token. When the `bearer` token is supplied in the `Authorization` header, the token is verified and the user is automatically authenticated by setting `request.user.id` using middleware. To use the user model in any endpoint you can use the `get_current_user` dependency. If for any endpoint you want to enforce authentication, you can use the `AuthenticationRequired` dependency. It will raise a `HTTPException` if the user is not authenticated.
-
-#### Row Level Access Control
-
-The boilerplate contains a custom row level permissions management module. It is inspired by [fastapi-permissions](https://github.com/holgi/fastapi-permissions). It is located in `core/security/access_control.py`. You can use this to enforce different permissions for different models. The module operates based on `Principals` and `permissions`. Every user has their own set of principals which need to be set using a function. Check `core/fastapi/dependencies/permissions.py` for an example. The principals are then used to check the permissions for the user. The permissions need to be defined at the model level. Check `app/models/user.py` for an example. Then you can use the dependency directly in the route to raise a `HTTPException` if the user does not have the required permissions. Below is an incomplete example:
 
 ```python
-from fastapi import APIRouter, Depends
-from core.security.access_control import AccessControl, UserPrincipal, RolePrincipal, Allow
-from core.database import Base
-
-class User(Base):
-    __tablename__ = "users"
-    id = Column(Integer, primary_key=True)
-    name = Column(String)
-    email = Column(String, unique=True)
-    password = Column(String)
-    role = Column(String)
-
-    def __acl__(self):
-        return [
-            (Allow, UserPrincipal(self.id), "view"),
-            (Allow, RolePrincipal("admin"), "delete"),
-        ]
-
-def get_user_principals(user: User = Depends(get_current_user)):
-    return [UserPrincipal(user.id)]
-
-Permission = AccessControl(get_user_principals)
-
-router = APIRouter()
-
-@router.get("/users/{user_id}")
-def get_user(user_id: int, user: User = get_user(user_id), assert_access = Permission("view")):
-    assert_access(user)
-    return user
-
+fare_rules = {
+    (Line.Green, Line.Green): FareRules(non_peak=1, peak=2),
+    (Line.Red, Line.Red): FareRules(non_peak=2, peak=3),
+    (Line.Green, Line.Red): FareRules(non_peak=3, peak=4),
+    (Line.Red, Line.Green): FareRules(non_peak=2, peak=3),
+}
 ```
 
-#### Caching
-
-You can directly use the `Cache.cached` decorator from `core.cache`. Example
-
-```python
-from core.cache import Cache
-
-@Cache.cached(prefix="user", ttl=60)
-def get_user(user_id: int):
-    ...
-```
-
-#### Celery
-
-The celery worker is already configured for the app. You can add your tasks in `worker/` to run the celery worker, you can run the following command:
+2. **Fare Caps Enum:**
 
 ```bash
-make celery-worker
+#Caps
+# | FromLine | ToLine | DailyCap | WeeklyCap |
+# |-----------|---------|-----------|------------|
+# | Green     | Green   | 8         | 55         |
+# | Red       | Red     | 12        | 70         |
+# | Green     | Red     | 15        | 90         |
+# | Red       | Green   | 15        | 90         |
 ```
-
-#### Session Management
-
-The sessions are already handled by the middleware and `get_session` dependency which injected into the repositories through fastapi dependency injection inside the `Factory` class in `core/factory.py`. There is also `Transactional` decorator which can be used to wrap the functions which need to be executed in a transaction. Example:
 
 ```python
-@Transactional()
-async def some_mutating_function():
-    ...
+fare_caps = {
+    (Line.Green, Line.Green): FareCaps(daily_cap=8, weekly_cap=55),
+    (Line.Red, Line.Red): FareCaps(daily_cap=12, weekly_cap=70),
+    (Line.Green, Line.Red): FareCaps(daily_cap=15, weekly_cap=90),
+    (Line.Red, Line.Green): FareCaps(daily_cap=15, weekly_cap=90),
+}
+
 ```
 
-Note: The decorator already handles the commit and rollback of the transaction. You do not need to do it manually.
+3. **Peak Hour Schedule Enum:**
 
-If for any case you need an isolated sessions you can use `standalone_session` decorator from `core.database`. Example:
+```bash
+# Peak hours
+# # # Define peak hours
+# | Day       | Start Time | End Time  |
+# |-----------|------------|-----------|
+# | Monday    | 08:00 AM   | 10:00 AM  |Weekday= 0
+# | Monday    | 04:30 PM   | 07:00 PM  |Weekday= 0
+# | Tuesday   | 08:00 AM   | 10:00 AM  |Weekday= 1
+# | Tuesday   | 04:30 PM   | 07:00 PM  |Weekday= 1
+# | Wednesday | 08:00 AM   | 10:00 AM  |Weekday= 2
+# | Wednesday | 04:30 PM   | 07:00 PM  |Weekday= 2
+# | Thursday  | 08:00 AM   | 10:00 AM  |Weekday= 3
+# | Thursday  | 04:30 PM   | 07:00 PM  |Weekday= 3
+# | Friday    | 08:00 AM   | 10:00 AM  |Weekday= 4
+# | Friday    | 04:30 PM   | 07:00 PM  |Weekday= 4
+# | ----------------------------------------------
+# | Saturday  | 10:00 AM   | 02:00 PM  |Weekend= 5
+# | Saturday  | 06:00 PM   | 11:00 PM  |Weekend= 5
+# | Sunday    | 06:00 PM   | 11:00 PM  |Weekend= 6
+```
 
 ```python
-@standalone_session
-async def do_something():
-    ...
+peak_hours = {
+    "Weekday": [(8, 0, 10, 0), (16, 30, 19, 0)],
+    "Saturday": [(10, 0, 14, 0), (18, 0, 23, 0)],
+    "Sunday": [(18, 0, 23, 0)],
+}
 ```
 
-#### Repository Pattern
 
-The boilerplate uses the repository pattern. Every model has a repository and all of them inherit `base` repository from `core/repository`. The repositories are located in `app/repositories`. The repositories are injected into the controllers inside the `Factory` class in `core/factory/factory.py.py`.
+## Testing
 
-The base repository has the basic crud operations. All customer operations can be added to the specific repository. Example:
+The project contains tests for all endpoints and all the cases, 
 
-```python
-from core.repository import BaseRepository
-from app.models.user import User
-from sqlalchemy.sql.expression import select
-
-class UserRepository(BaseRepository[User]):
-    async def get_by_email(self, email: str):
-        return await select(User).filter(User.email == email).gino.first()
-
+```bash
+pytest tests/ 
 ```
+#### API Testing
 
-To facilitate easier access to queries with complex joins, the `BaseRepository` class has a `_query` function (along with other handy functions like `_all()` and `_one_or_none()`) which can be used to write compplex queries very easily. Example:
+ **Please refer to the screenshot and create a post request accordingly**
 
-```python
-async def get_user_by_email_join_tasks(email: str):
-    query = await self._query(join_)
-    query = query.filter(User.email == email)
-    return await self._one_or_none(query)
-```
+#### Test Cases
 
-Note: For every join you want to make you need to create a function in the same repository with pattern `_join_{name}`. Example: `_join_tasks` for `tasks`. Example:
+1. **Normal Route Fare Calculation**
 
-```python
-async def _join_tasks(self, query: Select) -> Select:
-    return query.options(joinedload(User.tasks))
-```
+![alt text](https://github.com/antrikshdua/Peakflo-Signa-Metro-Fare-Calculator/blob/main/images/normal-fare-calculation..jpg?raw=true)
 
-#### Controllers
 
-Kind of to repositories, every logical unit of the application has a controller. The controller also has a primary repository which is injected into it. The controllers are located in `app/controllers`.
-
-These controllers contain all the business logic of the application. Check `app/controllers/auth.py` for an example.
-
-#### Schemas
-
-The schemas are located in `app/schemas`. The schemas are used to validate the request body and response body. The schemas are also used to generate the OpenAPI documentation. The schemas are inherited from `BaseModel` from `pydantic`. The schemas are primarily isolated into `requests` and `responses` which are pretty self explainatory.
-
-#### Formatting
-
-You can use `make format` to format the code using `black` and `isort`.
-
-#### Linting
-
-You can use `make lint` to lint the code using `pylint`.
-
-#### Testing
-
-The project contains tests for all endpoints, some of the logical components like `JWTHander` and `AccessControl` and an example of testing complex inner components like `BaseRepository`. The tests are located in `tests/`. You can run the tests using `make test`.
 
 ## Contributing
 
@@ -321,10 +209,18 @@ Contributions are higly welcome. Please open an issue or a PR if you want to con
 
 ## License
 
-This project is licensed under the terms of the MIT license. See the LICENSE file.
+<!---
+Copyright 2023 The Antriksh Dua team. All rights reserved.
 
-## Acknowledgements
+Licensed under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
 
-- This project uses several components from [teamhide/fastapi-boilerplate](https://github.com/teamhide/fastapi-boilerplate)
-- The row level access control is inspired by [fastapi-permissions](https://github.com/holgi/fastapi-permissions)
-- CRUD pattern is inspired by [full-stack-fastapi-postgresql](https://github.com/tiangolo/full-stack-fastapi-postgresql)
+    http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
+-->
