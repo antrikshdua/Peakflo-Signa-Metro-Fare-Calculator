@@ -1,4 +1,6 @@
+import csv
 from datetime import datetime, timedelta
+from app.modules.v1.schemas import Journey 
 
 # Define a function to generate journeys for a specific route that will exceed the weekly cap
 def generate_journeys_to_exceed_weekly_cap(route, weekly_cap):
@@ -17,4 +19,18 @@ def generate_journeys_to_exceed_weekly_cap(route, weekly_cap):
         # Increment the datetime to simulate a daily journey
         current_datetime += timedelta(days=1)
     print(journeys)
+    return journeys
+
+def get_journeys_from_csv(content):
+    # Read and parse the uploaded CSV file
+    journeys = []
+    decoded_content = content.decode("utf-8").splitlines()
+    csv_reader = csv.reader(decoded_content)
+
+    for row in csv_reader:
+        if len(row) == 3:
+            from_line, to_line, datetime_str = row
+            journey_datetime = datetime.fromisoformat(datetime_str)
+            journeys.append(Journey(from_line=from_line, to_line=to_line, datetime=journey_datetime))
+
     return journeys

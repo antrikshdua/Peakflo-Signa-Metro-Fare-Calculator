@@ -1,4 +1,4 @@
-from pydantic import BaseModel
+from pydantic import BaseModel, Field
 from datetime import datetime
 from enum import Enum
 
@@ -21,5 +21,8 @@ class FareRules(BaseModel):
     non_peak: int
     peak: int
 
-class FareCalculation(BaseModel):
-    total_fare: str
+class ResponseFareCalculation(BaseModel):
+    message: str
+    total_fare: str = Field("Null", description="Message when nothing is calculated")
+    daily_limit_exceed: bool = Field(False)
+    weekly_limit_exceed: bool= Field(False)

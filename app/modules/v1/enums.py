@@ -1,4 +1,4 @@
-from fair_calculator.modules.v1.schemas import Line, FareRules, FareCaps
+from app.modules.v1.schemas import Line, FareRules, FareCaps
 
 """
     All this data can be later on loaded from the cache/database
