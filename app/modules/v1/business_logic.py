@@ -2,6 +2,7 @@ from app.modules.v1.enums import fare_caps, fare_rules, peak_hours
 from app.modules.v1.schemas import Journey, ResponseFareCalculation
 from typing import List
 from datetime import datetime
+from fastapi import HTTPException
 
 async def calculate_fare(journeys: List[Journey]) -> int:
     total_fare = 0
@@ -30,7 +31,11 @@ async def calculate_fare(journeys: List[Journey]) -> int:
         # Calculate fare based on fare rules
         fare_rule = fare_rules.get((from_line, to_line))
         if not fare_rule:
-            return ResponseFareCalculation(message=f"Invalid Route {from_line} -> {to_line}")
+            message = f"Invalid Route {from_line} -> {to_line}"
+            raise HTTPException(
+                status_code=400,
+                detail=str(message)
+            )
 
         peak_hours = is_peak_hour(journey_datetime)
         fare = fare_rule.peak if peak_hours else fare_rule.non_peak

@@ -188,9 +188,16 @@ peak_hours = {
 
 The project contains tests for all endpoints and all the cases, 
 
+
+#### Test Suite 
+
 ```bash
-pytest tests/ 
+pytest --verbose tests/ 
 ```
+
+![alt text](https://github.com/antrikshdua/Peakflo-Signa-Metro-Fare-Calculator/blob/main/images/pytest-pass..jpg?raw=true)
+
+
 #### API Testing
 
  **Please refer to the screenshot and create a post request accordingly**
@@ -199,9 +206,31 @@ pytest tests/
 
 1. **Normal Route Fare Calculation**
 
+- Add the csv from the test-csv folder named normal-fare-calculation.csv
+
 ![alt text](https://github.com/antrikshdua/Peakflo-Signa-Metro-Fare-Calculator/blob/main/images/normal-fare-calculation..jpg?raw=true)
 
 
+
+2. **Invalid Route Fare Calculation**
+
+- Add the csv from the test-csv folder named invalid-route-data.csv
+
+![alt text](https://github.com/antrikshdua/Peakflo-Signa-Metro-Fare-Calculator/blob/main/images/normal-fare-calculation..jpg?raw=true)
+
+
+3. **Daily Limit Exceed**
+
+- Add the csv from the test-csv folder named daily-limit-exceeded.csv
+
+![alt text](https://github.com/antrikshdua/Peakflo-Signa-Metro-Fare-Calculator/blob/main/images/normal-fare-calculation..jpg?raw=true)
+
+
+4. **Weekly Limit Exceed**
+
+- Add the csv from the test-csv folder named weekly-limit-exceeded.csv
+
+![alt text](https://github.com/antrikshdua/Peakflo-Signa-Metro-Fare-Calculator/blob/main/images/normal-fare-calculation..jpg?raw=true)
 
 ## Contributing
 

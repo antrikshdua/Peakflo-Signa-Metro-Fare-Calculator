@@ -17,7 +17,7 @@ async def calculate_fare_endpoint(file: UploadFile):
         total_fare = await calculate_fare(journeys)
         return total_fare
     except Exception as e:
-        raise HTTPException(status_code=400, detail=str(e))
+        raise HTTPException(status_code=400, detail=str(e.detail))
 
 if __name__ == "__main__":
     run("main:app", host="0.0.0.0", port=8000)
