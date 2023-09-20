@@ -1,4 +1,3 @@
-# from uvicorn import run
 from fastapi import FastAPI, UploadFile, HTTPException
 from app.modules.v1.schemas import ResponseFareCalculation
 from app.modules.v1.business_logic import calculate_fare
@@ -18,6 +17,3 @@ async def calculate_fare_endpoint(file: UploadFile):
         return total_fare
     except Exception as e:
         raise HTTPException(status_code=400, detail=str(e.detail))
-
-# if __name__ == "__main__":
-#     run("main:app", host="0.0.0.0", port=8000)
