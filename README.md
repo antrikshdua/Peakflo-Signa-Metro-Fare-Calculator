@@ -94,7 +94,7 @@ In summary, this action is taken to ensure that riders are charged fairly and th
 4. **Run project locally:**
 
     ```bash
-    python main.py
+    uvicorn main:app --host 0.0.0.0 --port 80
     ```
 
 The server should now be running on `http://localhost:8000`
@@ -102,15 +102,7 @@ The server should now be running on `http://localhost:8000`
 
 ### Production Setup: Containerization using Docker
 
-This Dockerfile consists of two stages:
-
-#### Build Stage (named "build"):
-
-- Uses the official Python 3.8 image as the base image.
-- Sets environment variables for Python.
-- Creates a working directory within the container.
-- Copies the project files (including requirements.txt) into the container.
-- Installs project dependencies from requirements.txt.
+This Dockerfile consists of a stage production:
 
 #### Production Stage (named "production"):
 
@@ -125,7 +117,7 @@ This Dockerfile consists of two stages:
 - You can build and run the Docker image with the following commands:
 ```bash
 # Build the Docker image
-docker build -t singa-metro-fare-calculator .
+docker build --no-cache -t singa-metro-fare-calculator .
 ```
 
 ```bash
