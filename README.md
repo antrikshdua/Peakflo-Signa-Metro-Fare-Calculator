@@ -49,6 +49,8 @@ In summary, this action is taken to ensure that riders are charged fairly and th
 
 ### Installation Guide
 
+#### Local Setup
+
 1. **Clone the repository:**
 
    ```bash
@@ -78,6 +80,40 @@ In summary, this action is taken to ensure that riders are charged fairly and th
     ```
 
 The server should now be running on `http://localhost:8000`
+
+
+### Production Setup: Containerization using Docker
+
+This Dockerfile consists of two stages:
+
+### Build Stage (named "build"):
+
+- Uses the official Python 3.8 image as the base image.
+- Sets environment variables for Python.
+- Creates a working directory within the container.
+- Copies the project files (including requirements.txt) into the container.
+- Installs project dependencies from requirements.txt.
+
+### Production Stage (named "production"):
+
+- Uses the slimmer Python 3.8-slim image as the base image for production.
+- Sets environment variables.
+- Creates a working directory.
+- Copies the application code and dependencies from the "build" stage.
+- Exposes port 8000 (the port where your FastAPI application will run).
+- Specifies the command to run the application using uvicorn.
+
+
+- You can build and run the Docker image with the following commands:
+```bash
+# Build the Docker image
+docker build -t singa-metro-fare-calculator .
+```
+
+```bash
+# Run the Docker container
+docker run -p 8000:8000 singa-metro-fare-calculator
+```
 
 ### Features
 
