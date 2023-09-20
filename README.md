@@ -52,7 +52,7 @@ Singa Metro Authority (SMA) Fare Calculator is a FastAPI-based application for c
 - [License](#license)
 - [Acknowledgements](#acknowledgements)
 
-### Algorithm 
+### Algorithm: Terminologies  
 
 - The action of reducing the fare to make it equal to the daily cap when the sum of the daily fare usage and the current journey's fare  exceeds the daily cap is likely implemented to prevent riders from being charged more than the daily cap for a single day of travel.
 
@@ -68,15 +68,31 @@ Here's a breakdown of why this action is performed:
 
 In summary, this action is taken to ensure that riders are charged fairly and that they do not exceed the daily cap, which is designed to protect them from excessive charges on any given day.
 
-### Project Overview
+### Project Setup
+
+1. **Setup project locally:**
+
     ```bash
     python -m venv venv
     source venv/bin/activate  # On Windows, use `venv\Scripts\activate`
+
+2. **Install Dependencies:**
+
+    ```bash
+    pip install -r requirements.txt
+
+
+3. **Run project locally:**
+
+    ```bash
+    python main.py
+    
 
 ### Features
 
 - Python 3.8+ support
 - Asynchoronous capabilities
+- Uvicorn
 - Testing suite
 - Type checking using pydantic
 - Readily available CRUD operations
