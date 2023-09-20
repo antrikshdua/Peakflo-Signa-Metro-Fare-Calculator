@@ -1,3 +1,19 @@
+<!---
+Copyright 2023 The Antriksh Dua team. All rights reserved.
+
+Licensed under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
+
+    http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
+-->
+
 # Peakflo: Singa Metro Fare Calculator
 
 Singa Metro Authority (SMA) Fare Calculator is a FastAPI-based application for calculating fares for the Singa metro system. It implements fare rules, peak hours, and fare caps for various metro lines.
@@ -242,6 +258,7 @@ pytest --verbose tests/
 
 1. **Normal Route Fare Calculation**
 
+- Case when the normal fare is calculated based on the route taken by the traveller
 - Add the csv from the test-csv folder named normal-fare-calculation.csv
 
 ![alt text](https://github.com/antrikshdua/Peakflo-Signa-Metro-Fare-Calculator/blob/main/images/normal-fare-calculation..jpg?raw=true)
@@ -250,6 +267,7 @@ pytest --verbose tests/
 
 2. **Invalid Route Fare Calculation**
 
+- Case when an invalid/not allowed route is taken by the traveller
 - Add the csv from the test-csv folder named invalid-route-data.csv
 
 ![alt text](https://github.com/antrikshdua/Peakflo-Signa-Metro-Fare-Calculator/blob/main/images/normal-fare-calculation..jpg?raw=true)
@@ -257,6 +275,7 @@ pytest --verbose tests/
 
 3. **Daily Limit Exceed**
 
+- Case when the daily limit is reached for the route taken by the traveller
 - Add the csv from the test-csv folder named daily-limit-exceeded.csv
 
 ![alt text](https://github.com/antrikshdua/Peakflo-Signa-Metro-Fare-Calculator/blob/main/images/normal-fare-calculation..jpg?raw=true)
@@ -264,6 +283,7 @@ pytest --verbose tests/
 
 4. **Weekly Limit Exceed**
 
+- Case when the weekly limit is reached for the route taken by the traveller
 - Add the csv from the test-csv folder named weekly-limit-exceeded.csv
 
 ![alt text](https://github.com/antrikshdua/Peakflo-Signa-Metro-Fare-Calculator/blob/main/images/normal-fare-calculation..jpg?raw=true)
@@ -273,19 +293,5 @@ pytest --verbose tests/
 Contributions are higly welcome. Please open an issue or a PR if you want to contribute.
 
 ## License
+- http://www.apache.org/licenses/LICENSE-2.0
 
-<!---
-Copyright 2023 The Antriksh Dua team. All rights reserved.
-
-Licensed under the Apache License, Version 2.0 (the "License");
-you may not use this file except in compliance with the License.
-You may obtain a copy of the License at
-
-    http://www.apache.org/licenses/LICENSE-2.0
-
-Unless required by applicable law or agreed to in writing, software
-distributed under the License is distributed on an "AS IS" BASIS,
-WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-See the License for the specific language governing permissions and
-limitations under the License.
--->
